@@ -46,7 +46,18 @@ export default function editReducer(
     case ActionTypes.CLEAR_FORM:
       return {
         ...state,
+        priceList: state.currentId
+          ? [
+              ...state.priceList,
+              {
+                title: state.formState.title,
+                price: state.formState.price,
+                id: state.currentId,
+              },
+            ]
+          : state.priceList,
         formState: initialFormState,
+        currentId: null,
       };
 
     case ActionTypes.OPEN_TO_UPDATE_SERVICE_ITEM:
