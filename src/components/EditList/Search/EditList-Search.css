@@ -1,0 +1,21 @@
+.EditList-Search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+  gap: 15px;
+}
+
+.Search-Title {
+  font-size: 38px;
+  margin-bottom: 0;
+}
+
+.Search-Form {
+  width: 100%;
+}
+
+.Search-Input {
+  height: 40px;
+  width: 100%;
+}

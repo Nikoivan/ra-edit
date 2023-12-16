@@ -1,56 +1,22 @@
 import { ActionTypes } from './actions';
 import { nanoid } from 'nanoid';
-
-export type FormStateProps = {
-  price: number;
-  title: string;
-};
-
-export type PriceItemProps = FormStateProps & {
-  id: string;
-};
-
-export type InitialStateProps = {
-  formState: FormStateProps;
-  priceList: PriceItemProps[];
-};
+import {
+  ActionAllTypes,
+  GlobalStateProps,
+} from './types/editListReducer-Types';
 
 const initialFormState = {
   price: 0,
   title: '',
 };
 
-const initialState: {
-  formState: FormStateProps;
-  priceList: PriceItemProps[];
-  currentId: number | null;
-} = {
+const initialState: GlobalStateProps = {
   formState: initialFormState,
   priceList: [],
   currentId: null,
+  search: '',
+  searchList: [],
 };
-
-type ActionChangeForm = {
-  type: ActionTypes.CHANGE_FORM;
-  payload: { name: string; value: string | number };
-};
-type ActionWithoutPaylaod = {
-  type: ActionTypes.CLEAR_FORM | ActionTypes.CREATE_SERVICE_ITEM;
-};
-type ActionOpenEdit = {
-  type: ActionTypes.OPEN_TO_UPDATE_SERVICE_ITEM;
-  payload: PriceItemProps;
-};
-type ActionDeleteItem = {
-  type: ActionTypes.DELETE_SERVICE_ITEM;
-  payload: { id: string };
-};
-
-type ActionAllTypes =
-  | ActionChangeForm
-  | ActionWithoutPaylaod
-  | ActionOpenEdit
-  | ActionDeleteItem;
 
 export default function editReducer(
   state = initialState,
@@ -98,6 +64,15 @@ export default function editReducer(
         ...state,
         priceList: state.priceList.filter(
           (item) => item.id !== action.payload.id
+        ),
+      };
+
+    case ActionTypes.FILTER_CHANGE:
+      return {
+        ...state,
+        search: action.payload.search,
+        searchList: state.priceList.filter((item) =>
+          item.title.includes(action.payload.search)
         ),
       };
 

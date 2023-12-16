@@ -1,5 +1,9 @@
 import { ActionTypes } from './actions';
-import { PriceItemProps } from './editListReducer';
+import {
+  ActionAllTypes,
+  ActionFilterChange,
+  PriceItemProps,
+} from './types/editListReducer-Types';
 
 export type FormChangePayload = {
   name: string;
@@ -62,6 +66,21 @@ export const deleteItem =
     const action = {
       type: ActionTypes.DELETE_SERVICE_ITEM,
       payload: { id },
+    };
+    dispatch(action);
+  };
+
+export const changeFilter =
+  (
+    dispatch: (action: {
+      type: ActionTypes;
+      payload: { search: string };
+    }) => void
+  ) =>
+  (value: string) => {
+    const action = {
+      type: ActionTypes.FILTER_CHANGE,
+      payload: { search: value },
     };
     dispatch(action);
   };

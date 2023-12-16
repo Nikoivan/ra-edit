@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { InitialStateProps } from '../../redux/editListReducer';
+
 import ListItem from '../ListItem/ListItem';
 import { ChangeEvent, FormEvent } from 'react';
 import {
@@ -8,11 +8,13 @@ import {
   createPriceItem,
 } from '../../redux/editListFunctions';
 import './EditList.css';
+import EditListSearch from './Search/EditList-Search';
+import { GlobalStateProps } from '../../redux/types/editListReducer-Types';
 
 export default function EditList() {
   const dispatch = useDispatch();
-  const { formState, priceList } = useSelector(
-    (state: { editListState: InitialStateProps }) => state.editListState
+  const { formState, priceList, search, searchList } = useSelector(
+    (state: { editListState: GlobalStateProps }) => state.editListState
   );
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -34,10 +36,12 @@ export default function EditList() {
   };
 
   const { price, title } = formState;
+  const servicesList = search !== '' ? searchList : priceList;
 
   return (
     <div className='EditList'>
       <header className='EditList-Header'>
+        <EditListSearch />
         <form
           onSubmit={(e: FormEvent) => {
             e.preventDefault();
@@ -55,7 +59,7 @@ export default function EditList() {
             value={price}
             type='number'
             name='price'
-            className='FormInput'
+            className='Form-Input'
             onChange={onChange}
           />
           <button onClick={onSave} className='Form-Button'>
@@ -68,7 +72,7 @@ export default function EditList() {
       </header>
       <main className='EditList-Main'>
         <ul className='Main-List'>
-          {priceList.map((item) => (
+          {servicesList.map((item) => (
             <ListItem key={item.id} {...item} />
           ))}
         </ul>

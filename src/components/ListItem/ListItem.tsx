@@ -1,12 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteItem, openEditItem } from '../../redux/editListFunctions';
-import { PriceItemProps, InitialStateProps } from '../../redux/editListReducer';
+
 import './ListItem.css';
+import {
+  GlobalStateProps,
+  PriceItemProps,
+} from '../../redux/types/editListReducer-Types';
 
 const ListItem = ({ price, title, id }: PriceItemProps) => {
   const dispatch = useDispatch();
   const { priceList } = useSelector(
-    (state: { editListState: InitialStateProps }) => state.editListState
+    (state: { editListState: GlobalStateProps }) => state.editListState
   );
 
   const onEditClick = () => {
