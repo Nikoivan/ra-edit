@@ -84,7 +84,9 @@ export default function editReducer(
         ...state,
         search: action.payload.search,
         searchList: state.priceList.filter((item) =>
-          item.title.includes(action.payload.search)
+          item.title
+            .toLocaleLowerCase()
+            .includes(action.payload.search.toLocaleLowerCase())
         ),
       };
 
