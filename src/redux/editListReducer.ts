@@ -58,6 +58,7 @@ export default function editReducer(
           : state.priceList,
         formState: initialFormState,
         currentId: null,
+        search: '',
       };
 
     case ActionTypes.OPEN_TO_UPDATE_SERVICE_ITEM:
